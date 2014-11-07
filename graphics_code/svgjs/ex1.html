@@ -12,28 +12,28 @@
 	
 	function circleByX(a,x,r)
 	{
-		return Math.sqrt((Math.pow(-a,2)+(2*a*x)+Math.pow(r,2)-Math.pow(x,2)))
+		return Math.sqrt((-Math.pow(a,2)+(2*a*x)+Math.pow(r,2)-Math.pow(x,2)))
 	}
 	
 	var draw = SVG('paper').size(1500, 1500)
 	var ellipse = draw.ellipse(10, 11).attr({ fill: '#f00' })
 //	ellipse.animate(2000,">").move(150, 150)
 	var a = 250; // x offset for circular path
-	var b = 50; // y offset for circular path
+	var b = 250; // y offset for circular path
 
-	var r = 10 // radius of path
-	var d = 1// rate of change
+	var r = 100 // radius of path
+	var d = 5// rate of change
 	var dir = 1; // direction of travel
 	var x = a-r; // actual x pos
 	var y // actual y pos
 	setInterval(function () {
 
-		if(x<(a-r))
+		if(x<=(a-r))
 		{
 			dir *=-1;
 			x = a-r;
 		}
-		if(x>(a+r))
+		if(x>=(a+r))
 		{
 			dir *= -1;
 			x = a+r;
@@ -43,18 +43,17 @@
 		if(dir<0)
 		{
 			console.log("inner value:" + circleByX(a,x,r))
-			y = circleByX(a,x,r) + b;
-			
+			y = b - circleByX(a,x,r);
 		}
 		else
 		{
-			console.log("inner value:" + circleByX(a,x,r))
-			y = b - circleByX(a,x,r);
+						console.log("inner value:" + circleByX(a,x,r))
+			y = circleByX(a,x,r) + b;
 		}
 		ellipse.move(x,y);
 		console.log(x+":"+y)
 
-	},500)
+	},12)
 	
 	
 </script>
