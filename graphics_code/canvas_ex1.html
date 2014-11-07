@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title> - jsFiddle demo</title>
+  
+  
+  <style type='text/css'>
+    canvas {
+    border: 3px solid #333;
+}
+  </style>
+  
+
+
+<script type='text/javascript'>//<![CDATA[ 
+
+function circleByX(a,x,r)
+{
+	return Math.sqrt((Math.pow(-a,2)+(2*a*x)+Math.pow(r,2)-Math.pow(x,2)))
+}
+
+	
+var VanillaRunOnDomReady = function() {
+var vendors = ['webkit', 'moz'];
+for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+    window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+    window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] || window[vendors[x] + 'CancelRequestAnimationFrame'];
+}
+
+var canvas = document.getElementById('canvas'),
+    cw = canvas.width,
+    ch = canvas.height,
+	a = canvas.width/2,
+	b = canvas.height/2,
+    cx = null,
+    fps = 30,
+    bX = 10,
+    bY = 10,
+    mX = 150,
+    mY = 300,
+    lastTime = (new Date()).getTime(),
+    currentTime = 0,
+    delta = 0;
+
+function gameLoop() {
+    window.requestAnimationFrame(gameLoop);
+
+    currentTime = (new Date()).getTime();
+    delta = (currentTime - lastTime) / 1000;
+    cx.clearRect(0, 0, cw, cw);
+
+    cx.beginPath();
+    cx.fillStyle = 'red';
+    cx.arc(bX, bY, 10, 0, Math.PI * 360);
+    cx.fill();
+    if (bX >= cw || bX <= 0) {
+        mX *= -1;
+    }
+    if (bY >= ch || bY <= 0) {
+        mY *= -1;
+    }
+
+    bX += (mX * delta);
+    bY += (mY * delta);
+
+    lastTime = currentTime;
+}
+
+if (typeof (canvas.getContext) !== undefined) {
+    cx = canvas.getContext('2d');
+
+    gameLoop();
+}
+}
+
+var alreadyrunflag = 0;
+
+if (document.addEventListener)
+    document.addEventListener("DOMContentLoaded", function(){
+        alreadyrunflag=1; 
+        VanillaRunOnDomReady();
+    }, false);
+else if (document.all && !window.opera) {
+    document.write('<script type="text/javascript" id="contentloadtag" defer="defer" src="javascript:void(0)"><\/script>');
+    var contentloadtag = document.getElementById("contentloadtag")
+    contentloadtag.onreadystatechange=function(){
+        if (this.readyState=="complete"){
+            alreadyrunflag=1;
+            VanillaRunOnDomReady();
+        }
+    }
+}
+
+window.onload = function(){
+  setTimeout("if (!alreadyrunflag){VanillaRunOnDomReady}", 0);
+}//]]>  
+
+</script>
+
+
+</head>
+<body>
+  <canvas id="canvas" width="500" height="500"></canvas>
+  
+</body>
+
+
+</html>
+

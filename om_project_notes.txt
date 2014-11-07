@@ -1,0 +1,8 @@
+========ORIBITAL MECHANICS PROJECT NOTES===========
+
+Somewhat off topic, but here are a couple of javascript animation loop resources that will probably do thing correctly:
+    - https://developer.mozilla.org/en-US/docs/Web/API/window.requestAnimationFrame
+    - https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API
+    - https://coderwall.com/p/iygcpa/gameloop-the-correct-way
+
+More on Kepler equations later.

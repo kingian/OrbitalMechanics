@@ -1,0 +1,42 @@
+<SCRIPT LANGUAGE="JavaScript">
+
+var timerID = null
+var timerRunning = false
+var JD_AT_UNIX_EPOCH = 2440587.5;
+var SECS_PER_DAY = 86400;
+var JD_AT_1_JAN_2000 = 2451545.0;
+var DAYS_PER_CENTURY = 36525;
+
+function unix2jd_ut(unixTime)
+{
+	if (!unixTime)
+	{
+		unixTime = new Date().getTime()/1000;
+	}
+	return JD_AT_UNIX_EPOCH + (unixTime/SECS_PER_DAY)
+}
+	
+function stopclock(){
+    if(timerRunning)
+        clearTimeout(timerID)
+    timerRunning = false
+}
+
+function startclock(){
+    stopclock()
+    showtime()
+}
+
+function showtime(){
+	
+    document.clock.face.value = unix2jd_ut();
+	timerID = setTimeout("showtime()",1000);
+    timerRunning = true;
+}
+
+</SCRIPT>
+<BODY onLoad="startclock()">
+<!-------------------------------------------------------------------------------------------->
+<form name="clock" onSubmit="0">
+<INPUT TYPE="text" NAME="face" SIZE="14" VALUE ="....Initializing....">
+</form>
